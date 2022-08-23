@@ -38,23 +38,28 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         if (nodeToRemove.key != key) { // do nothing
             return null with this
         }
-        val replacement = when {
-            nodeToRemove.left == null -> nodeToRemove.right.also { nodeToRemove.right = null }
-            nodeToRemove.right == null -> nodeToRemove.left.also { nodeToRemove.left = null }
+        val replacement: BremenAvlNode<K, V>?
+        when {
+            nodeToRemove.left == null -> {
+                replacement = nodeToRemove.right
+                nodeToRemove.right = null
+            }
+
+            nodeToRemove.right == null -> {
+                replacement = nodeToRemove.left
+                nodeToRemove.left = null
+            }
+
             else -> { // both children are present
-                val pathToReplacement =nodeToRemove.right!!.find(key)
-                val candidate = pathToReplacement.pop() // leftmost node to the right
-                if (pathToReplacement.isNotEmpty()) {
-                    pathToReplacement.peek().left = candidate.right.also { candidate.right = null }
-                    balanceAlongPath(pathToReplacement)
-                } else {
-                    nodeToRemove.right = null // we are taking the right child of the node to remove
-                }
-                candidate
+                val candidate = nodeToRemove.right!!.leftmost()
+                val newRight = nodeToRemove.right!!.remove(candidate.key).newRoot // can shorten by 1
+                candidate.left = nodeToRemove.left
+                candidate.right = newRight
+                replacement = candidate.rotate()
             }
         }
-        replacement?.right = nodeToRemove.right.also { nodeToRemove.right = null }
-        replacement?.left = nodeToRemove.left.also { nodeToRemove.left = null }
+        nodeToRemove.right = null
+        nodeToRemove.left = null
         if (pathFromRoot.isEmpty()) {
             return nodeToRemove.value with replacement
         }
@@ -105,7 +110,7 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
 
     fun leftmost(): BremenAvlNode<K, V> {
         var curr = this
-        while(curr.left != null) {
+        while (curr.left != null) {
             curr = curr.left!!
         }
         return curr
@@ -113,7 +118,7 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
 
     fun rightmost(): BremenAvlNode<K, V> {
         var curr = this
-        while(curr.right != null) {
+        while (curr.right != null) {
             curr = curr.right!!
         }
         return curr
