@@ -7,5 +7,5 @@ class AvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
 
     override fun maximumValue(): V = TODO("Not yet implemented")
 
-    override fun mimimumValue(): V = TODO("Not yet implemented")
+    override fun minimumValue(): V = TODO("Not yet implemented")
 }

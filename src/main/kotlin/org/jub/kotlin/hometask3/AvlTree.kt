@@ -10,7 +10,7 @@ interface AvlTree<K : Comparable<K>, V> {
 
     fun maximumValue(): V
 
-    fun mimimumValue(): V
+    fun minimumValue(): V
 }
 
 /**

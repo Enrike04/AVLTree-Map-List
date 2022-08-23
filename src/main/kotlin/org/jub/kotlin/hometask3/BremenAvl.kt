@@ -23,7 +23,7 @@ sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
 
     override fun maximumValue(): V = root?.rightmost()?.value ?: error("The tree is empty")
 
-    override fun mimimumValue(): V = root?.leftmost()?.value ?: error("The tree is empty")
+    override fun minimumValue(): V = root?.leftmost()?.value ?: error("The tree is empty")
 
     override fun remove(key: K): V? =
         root?.let {
