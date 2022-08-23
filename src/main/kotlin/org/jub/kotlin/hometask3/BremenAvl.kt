@@ -1,6 +1,6 @@
 package org.jub.kotlin.hometask3
 
-sealed class BremenAvl<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
+sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
         get() = (root?.asSequence() ?: emptySequence()).toMutableSet()
     override val keys: MutableSet<K>
@@ -10,7 +10,7 @@ sealed class BremenAvl<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override val values: MutableList<V>
         get() = (root?.asSequence() ?: emptySequence()).map { it.value }.toMutableList()
 
-    private var root: BremenAvlNode<K, V>? = null
+    internal var root: BremenAvlNode<K, V>? = null
 
     override fun clear() {
         root = null
@@ -53,4 +53,12 @@ sealed class BremenAvl<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override fun containsValue(value: V): Boolean = root?.containsValue(value) ?: false
 
     override fun containsKey(key: K): Boolean = get(key) != null
+}
+
+class  BremenAvl<K : Comparable<K>, V>() : BremenAvlBase<K, V>() {
+    constructor(from: Collection<Pair<K, V>>) : this() {
+        from.forEach { (key, value) ->
+            put(key, value)
+        }
+    }
 }

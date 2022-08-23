@@ -9,6 +9,18 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     // public
     var size: Int = 1
         private set
+    var left: BremenAvlNode<K, V>? = null
+        set(value) {
+            require(value?.let { it.key < key } ?: true) { "${value?.key} must be < $key to be left child" }
+            field = value
+            update()
+        }
+    var right: BremenAvlNode<K, V>? = null
+        set(value) {
+            require(value?.let { it.key > key } ?: true) { "${value?.key} must be > $key to be right child" }
+            field = value
+            update()
+        }
 
     override fun setValue(newValue: V): V {
         val old = value
@@ -108,18 +120,6 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     }
 
     // private
-    private var left: BremenAvlNode<K, V>? = null
-        set(value) {
-            require(value?.let { it.key < key } ?: true) { "${value?.key} must be < $key to be left child" }
-            field = value
-            update()
-        }
-    private var right: BremenAvlNode<K, V>? = null
-        set(value) {
-            require(value?.let { it.key > key } ?: true) { "${value?.key} must be > $key to be right child" }
-            field = value
-            update()
-        }
     private var height: Int = 1
     private val balance: Int
         get() = (left?.height ?: 0) - (right?.height ?: 0)
