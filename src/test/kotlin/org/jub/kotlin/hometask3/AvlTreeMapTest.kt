@@ -25,4 +25,40 @@ internal class AvlTreeMapTest {
         val emptyAvl: AvlTreeMap<Int, String> = BremenAvl()
         assertTrue(emptyAvl.isEmpty(), "Default tree should be empty")
     }
+
+    @Test
+    fun maximumKey() {
+        for (i in 1..10) {
+            val values = getSetOfRandomValues(i)
+            val avl: AvlTreeMap<Int, Double> = BremenAvl(values.zip(values.map { it.toDouble() }))
+            assertEquals(values.max(), avl.maximumKey(), "Wrong max key")
+        }
+    }
+
+    @Test
+    fun minimumKey() {
+        for (i in 1..10) {
+            val values = getSetOfRandomValues(i)
+            val avl: AvlTreeMap<Int, Double> = BremenAvl(values.zip(values.map { it.toDouble() }))
+            assertEquals(values.min(), avl.minimumKey(), "Wrong min key")
+        }
+    }
+
+    @Test
+    fun maximumValue() {
+        for (i in 1..10) {
+            val values = getSetOfRandomValues(i)
+            val avl: AvlTreeMap<Int, Double> = BremenAvl(values.zip(values.map { it.toDouble() }))
+            assertEquals(values.max().toDouble(), avl.maximumValue(), "Wrong max value")
+        }
+    }
+
+    @Test
+    fun minimumValue() {
+        for (i in 1..10) {
+            val values = getSetOfRandomValues(i)
+            val avl: AvlTreeMap<Int, Double> = BremenAvl(values.zip(values.map { it.toDouble() }))
+            assertEquals(values.min().toDouble(), avl.minimumValue(), "Wrong min value")
+        }
+    }
 }
