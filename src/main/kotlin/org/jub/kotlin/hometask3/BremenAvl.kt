@@ -55,7 +55,7 @@ sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override fun containsKey(key: K): Boolean = get(key) != null
 }
 
-class  BremenAvl<K : Comparable<K>, V>() : BremenAvlBase<K, V>() {
+class BremenAvl<K : Comparable<K>, V>() : BremenAvlBase<K, V>() {
     constructor(from: Collection<Pair<K, V>>) : this() {
         from.forEach { (key, value) ->
             put(key, value)
