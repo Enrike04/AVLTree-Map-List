@@ -7,7 +7,7 @@ internal class AvlTreeImplTest {
 
     @Test
     fun getSize() {
-        val avl = AvlTreeImplVerify<Int, String>()
+        val avl = BremenAvl<Int, String>()
         assertEquals(0, avl.size, "Default size should be 0")
         avl[666] = "Number of the Beast"
         assertEquals(1, avl.size, "Size after first `put` should be 1")

@@ -1,6 +1,6 @@
 package org.jub.kotlin.hometask3
 
-class AvlTreeImplVerify<K : Comparable<K>, V> : MutableMap<K, V> {
+class BremenAvl<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
         get() = (root?.asSequence() ?: emptySequence()).toMutableSet()
     override val keys: MutableSet<K>
@@ -10,13 +10,20 @@ class AvlTreeImplVerify<K : Comparable<K>, V> : MutableMap<K, V> {
     override val values: MutableList<V>
         get() = (root?.asSequence() ?: emptySequence()).map { it.value }.toMutableList()
 
-    private var root: AvlNodeImplVerify<K, V>? = null
+    private var root: BremenAvlNode<K, V>? = null
 
     override fun clear() {
         root = null
     }
 
     override fun isEmpty() = root == null
+    override fun maximumKey(): K = root?.rightmost()?.key ?: error("The tree is empty")
+
+    override fun minimumKey(): K = root?.leftmost()?.key ?: error("The tree is empty")
+
+    override fun maximumValue(): V = root?.rightmost()?.value ?: error("The tree is empty")
+
+    override fun mimimumValue(): V = root?.leftmost()?.value ?: error("The tree is empty")
 
     override fun remove(key: K): V? =
         root?.let {
@@ -37,7 +44,7 @@ class AvlTreeImplVerify<K : Comparable<K>, V> : MutableMap<K, V> {
             root = newRoot
             return oldValue
         }
-        root = AvlNodeImplVerify(key, value)
+        root = BremenAvlNode(key, value)
         return null
     }
 

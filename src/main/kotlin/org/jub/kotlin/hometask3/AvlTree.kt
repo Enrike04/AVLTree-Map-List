@@ -1,6 +1,6 @@
 package org.jub.kotlin.hometask3
 
-interface AvlTree<K : Comparable<K>, V> : Collection<V> {
+interface AvlTree<K : Comparable<K>, V> {
     /**
      * All maximum/minimum funs should throw some Exception if the tree is empty
      */
@@ -12,8 +12,6 @@ interface AvlTree<K : Comparable<K>, V> : Collection<V> {
 
     fun mimimumValue(): V
 }
-
-interface MutableAvlTree<K : Comparable<K>, V> : Collection<V>
 
 interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 
