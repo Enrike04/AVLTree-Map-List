@@ -15,8 +15,8 @@ interface AvlTree<K : Comparable<K>, V> {
 
 interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 
-interface MutableAvlTreeMap<K : Comparable<K>, V> :  MutableMap<K, V>, AvlTree<K, V>
+interface MutableAvlTreeMap<K : Comparable<K>, V> :  MutableMap<K, V>, AvlTreeMap<K, V>
 
 interface AvlTreeList<K : Comparable<K>, V> : List<V>, AvlTree<K, V>
 
-interface MutableAvlTreeList<K : Comparable<K>, V> : MutableList<V>, AvlTree<K, V>
+interface MutableAvlTreeList<K : Comparable<K>, V> : MutableList<V>, AvlTreeList<K, V>

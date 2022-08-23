@@ -1,8 +1,17 @@
 fun main() {
-var readonly = listOf(1, 2, 3)
-val mutable = mutableListOf(1, 2, 3)
-mutable.add(4)
-readonly = listOf(1, 2, 3, 4)
-    mutable.clear()
-    println(mutable[0])
+    val pattern = "ABCD"
+    val text = "AABCDEFABCACDCABCD"
+    var matches = 0
+    outerLoop@for (i in text.indices) {
+        innerLoop@for (j in pattern.indices) {
+            if (text[i + j] != pattern[j]) {
+                continue@outerLoop
+                // break@outerLoop
+            } else {
+                if (j == 3) matches += 1
+                continue@innerLoop
+            }
+        }
+    }
+    println(matches)
 }
