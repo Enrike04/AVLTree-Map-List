@@ -1,6 +1,7 @@
 package org.jub.kotlin.hometask3
 
 import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.assertThrows
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -61,8 +62,8 @@ internal class AvlTreeMapTest {
         val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(doubleValues))
         val entries = avl.entries
         assertTrue(entries.all { it.key in values && it.value in doubleValues })
-        assertTrue(values.all { it in entries.map { it.key } })
-        assertTrue(doubleValues.all { it in entries.map { it.value } })
+        assertTrue(values.all { value -> value in entries.map { it.key } })
+        assertTrue(doubleValues.all { doubleValue -> doubleValue in entries.map { it.value } })
     }
 
     @RepeatedTest(testIterations)
@@ -97,6 +98,23 @@ internal class AvlTreeMapTest {
         for (j in 1..testSetSize) {
             val testVal = Random.nextInt()
             assertTrue(testVal in values || avl[testVal] == null)
+        }
+    }
+
+    @Test
+    fun minmaxThrows() {
+        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl()
+        assertThrows<Exception>("Empty tree should throw") {
+            avl.minimumValue()
+        }
+        assertThrows<Exception>("Empty tree should throw") {
+            avl.maximumValue()
+        }
+        assertThrows<Exception>("Empty tree should throw") {
+            avl.minimumKey()
+        }
+        assertThrows<Exception>("Empty tree should throw") {
+            avl.maximumKey()
         }
     }
 }
