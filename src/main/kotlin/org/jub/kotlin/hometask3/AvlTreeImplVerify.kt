@@ -1,10 +1,6 @@
 package org.jub.kotlin.hometask3
 
 class AvlTreeImplVerify<K : Comparable<K>, V> : MutableMap<K, V> {
-    fun DEBUG_PRINT() {
-        root?.DEBUG_PRINT()
-    }
-
     override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
         get() = (root?.asSequence() ?: emptySequence()).toMutableSet()
     override val keys: MutableSet<K>

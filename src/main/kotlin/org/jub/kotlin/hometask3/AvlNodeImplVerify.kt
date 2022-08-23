@@ -7,15 +7,6 @@ internal class AvlNodeImplVerify<K : Comparable<K>, V>(
     override var value: V
 ) : MutableMap.MutableEntry<K, V> {
     // public
-    fun DEBUG_PRINT() {
-        println(this)
-        left?.DEBUG_PRINT()
-        right?.DEBUG_PRINT()
-    }
-
-    override fun toString(): String =
-        "Key: $key, Value: $value, Height: ${height}, Left key: ${left?.key}, Right key: ${right?.key}"
-
     var size: Int = 1
         private set
 
