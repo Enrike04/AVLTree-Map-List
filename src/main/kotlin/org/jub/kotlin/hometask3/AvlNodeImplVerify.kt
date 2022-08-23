@@ -2,7 +2,7 @@ package org.jub.kotlin.hometask3
 
 import java.util.*
 
-internal class AvlNodeImpl<K : Comparable<K>, V>(
+internal class AvlNodeImplVerify<K : Comparable<K>, V>(
     override val key: K,
     override var value: V
 ) : MutableMap.MutableEntry<K, V> {
@@ -25,9 +25,9 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
         return old
     }
 
-    data class AvlReturn<K : Comparable<K>, V>(val value: V?, val newRoot: AvlNodeImpl<K, V>?)
+    data class AvlReturn<K : Comparable<K>, V>(val value: V?, val newRoot: AvlNodeImplVerify<K, V>?)
 
-    private infix fun V?.with(node: AvlNodeImpl<K, V>?) = AvlReturn(this, node)
+    private infix fun V?.with(node: AvlNodeImplVerify<K, V>?) = AvlReturn(this, node)
 
     fun remove(key: K): AvlReturn<K, V> {
         val pathFromRoot = find(key)
@@ -67,8 +67,8 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
         val pathFromRoot = find(key) // at least `this` will be in the stack
         val candidate = pathFromRoot.peek()
         when {
-            candidate.key < key -> candidate.right = AvlNodeImpl(key, value)
-            candidate.key > key -> candidate.left = AvlNodeImpl(key, value)
+            candidate.key < key -> candidate.right = AvlNodeImplVerify(key, value)
+            candidate.key > key -> candidate.left = AvlNodeImplVerify(key, value)
             else -> {
                 val old = candidate.value
                 candidate.value = value
@@ -94,20 +94,20 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
         return left?.containsValue(value) ?: false || right?.containsValue(value) ?: false
     }
 
-    fun asSequence(): Sequence<AvlNodeImpl<K, V>> = sequence {
+    fun asSequence(): Sequence<AvlNodeImplVerify<K, V>> = sequence {
         left?.let { yieldAll(it.asSequence()) }
-        yield(this@AvlNodeImpl)
+        yield(this@AvlNodeImplVerify)
         right?.let { yieldAll(it.asSequence()) }
     }
 
     // private
-    private var left: AvlNodeImpl<K, V>? = null
+    private var left: AvlNodeImplVerify<K, V>? = null
         set(value) {
             require(value?.let { it.key < key } ?: true) { "${value?.key} must be < $key to be left child" }
             field = value
             update()
         }
-    private var right: AvlNodeImpl<K, V>? = null
+    private var right: AvlNodeImplVerify<K, V>? = null
         set(value) {
             require(value?.let { it.key > key } ?: true) { "${value?.key} must be > $key to be right child" }
             field = value
@@ -133,9 +133,9 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
         height = 1 + maxOf(leftHeight, rightHeight)
     }
 
-    private fun find(key: K): Stack<AvlNodeImpl<K, V>> {
-        val stack: Stack<AvlNodeImpl<K, V>> = Stack()
-        var curr: AvlNodeImpl<K, V>? = this
+    private fun find(key: K): Stack<AvlNodeImplVerify<K, V>> {
+        val stack: Stack<AvlNodeImplVerify<K, V>> = Stack()
+        var curr: AvlNodeImplVerify<K, V>? = this
         while (curr != null) {
             stack.push(curr)
             curr = when {
@@ -147,10 +147,10 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
         return stack
     }
 
-    private fun balanceAlongPath(changesPath: Stack<AvlNodeImpl<K, V>>): AvlNodeImpl<K, V> {
+    private fun balanceAlongPath(changesPath: Stack<AvlNodeImplVerify<K, V>>): AvlNodeImplVerify<K, V> {
         require(changesPath.isNotEmpty()) { "Cannot balance along empty path" }
         while (changesPath.isNotEmpty()) {
-            var curr = changesPath.pop()
+            val curr = changesPath.pop()
             curr.update()
             when {
                 changesPath.isEmpty() -> return curr.rotate()
@@ -192,14 +192,14 @@ internal class AvlNodeImpl<K : Comparable<K>, V>(
             else -> error("Impossible balance factor: $balance")
         }
 
-    private fun leftRotate(): AvlNodeImpl<K, V> {
+    private fun leftRotate(): AvlNodeImplVerify<K, V> {
         val child = right ?: error("Invalid rotate left: no right child.")
         right = child.left
         child.left = this
         return child
     }
 
-    private fun rightRotate(): AvlNodeImpl<K, V> {
+    private fun rightRotate(): AvlNodeImplVerify<K, V> {
         val child = left ?: error("Invalid rotate right: no left child.")
         left = child.right
         child.right = this

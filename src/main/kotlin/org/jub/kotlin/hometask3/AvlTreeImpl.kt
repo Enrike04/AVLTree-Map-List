@@ -1,55 +1,22 @@
 package org.jub.kotlin.hometask3
 
-import java.util.*
+class AvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
+    override fun maximumKey(): K = TODO("Not yet implemented")
 
-class AvlTreeImpl<K : Comparable<K>, V> : MutableMap<K, V> {
-    fun DEBUG_PRINT() {
-        root?.DEBUG_PRINT()
-    }
+    override fun minimumKey(): K = TODO("Not yet implemented")
 
-    override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
-        get() = (root?.asSequence() ?: emptySequence()).toMutableSet()
-    override val keys: MutableSet<K>
-        get() = (root?.asSequence() ?: emptySequence()).map { it.key }.toMutableSet()
+    override fun maximumValue(): V = TODO("Not yet implemented")
+
+    override fun mimimumValue(): V = TODO("Not yet implemented")
+
     override val size: Int
-        get() = root?.size ?: 0
-    override val values: MutableList<V>
-        get() = (root?.asSequence() ?: emptySequence()).map { it.value }.toMutableList()
+        get() = TODO("Not yet implemented")
 
-    private var root: AvlNodeImpl<K, V>? = null
+    override fun isEmpty(): Boolean = TODO("Not yet implemented")
 
-    override fun clear() {
-        root = null
-    }
+    override fun iterator(): Iterator<V> = TODO("Not yet implemented")
 
-    override fun isEmpty() = root == null
+    override fun containsAll(elements: Collection<V>): Boolean = TODO("Not yet implemented")
 
-    override fun remove(key: K): V? =
-        root?.let {
-            val (removedValue, newRoot) = root!!.remove(key)
-            root = newRoot
-            removedValue
-        }
-
-    // Can be written better
-    override fun putAll(from: Map<out K, V>) =
-        from.forEach { (key, value) ->
-            put(key, value)
-        }
-
-    override fun put(key: K, value: V): V? {
-        root?.let {
-            val (oldValue, newRoot) = root!!.put(key, value)
-            root = newRoot
-            return oldValue
-        }
-        root = AvlNodeImpl(key, value)
-        return null
-    }
-
-    override fun get(key: K): V? = root?.get(key)
-
-    override fun containsValue(value: V): Boolean = root?.containsValue(value) ?: false
-
-    override fun containsKey(key: K): Boolean = get(key) != null
+    override fun contains(element: V): Boolean = TODO("Not yet implemented")
 }
