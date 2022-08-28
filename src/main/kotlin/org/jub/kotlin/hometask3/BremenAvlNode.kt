@@ -12,13 +12,13 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     var height: Int = 1
         private set
     var left: BremenAvlNode<K, V>? = null
-        set(value) {
+        private set(value) {
             require(value?.let { it.key < key } ?: true) { "${value?.key} must be < $key to be left child" }
             field = value
             update()
         }
     var right: BremenAvlNode<K, V>? = null
-        set(value) {
+        private set(value) {
             require(value?.let { it.key > key } ?: true) { "${value?.key} must be > $key to be right child" }
             field = value
             update()
@@ -96,7 +96,7 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
             candidate.value
         }
     }
-    
+
     // Uses recursion :(
     fun containsValue(value: V): Boolean {
         if (this.value == value) {
@@ -105,24 +105,10 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         return left?.containsValue(value) ?: false || right?.containsValue(value) ?: false
     }
 
-    fun asSequence(): Sequence<BremenAvlNode<K, V>> = sequence {
-        left?.let { yieldAll(it.asSequence()) }
-        yield(this@BremenAvlNode)
-        right?.let { yieldAll(it.asSequence()) }
-    }
-
     fun leftmost(): BremenAvlNode<K, V> {
         var curr = this
         while (curr.left != null) {
             curr = curr.left!!
-        }
-        return curr
-    }
-
-    fun rightmost(): BremenAvlNode<K, V> {
-        var curr = this
-        while (curr.right != null) {
-            curr = curr.right!!
         }
         return curr
     }
@@ -219,4 +205,10 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         child.right = this
         return child
     }
+}
+
+internal fun <K : Comparable<K>, V> BremenAvlNode<K, V>.asSequence(): Sequence<BremenAvlNode<K, V>> = sequence {
+    left?.let { yieldAll(it.asSequence()) }
+    yield(this@asSequence)
+    right?.let { yieldAll(it.asSequence()) }
 }

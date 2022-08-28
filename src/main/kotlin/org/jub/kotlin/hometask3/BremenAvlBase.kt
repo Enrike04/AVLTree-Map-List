@@ -19,6 +19,14 @@ sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     }
 
     override fun isEmpty() = root == null
+
+    private fun BremenAvlNode<K, V>.rightmost(): BremenAvlNode<K, V> {
+        var curr = this
+        while (curr.right != null) {
+            curr = curr.right!!
+        }
+        return curr
+    }
     override fun maximumKey(): K = root?.rightmost()?.key ?: error("The tree is empty")
 
     override fun minimumKey(): K = root?.leftmost()?.key ?: error("The tree is empty")
@@ -55,12 +63,4 @@ sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override fun containsValue(value: V): Boolean = root?.containsValue(value) ?: false
 
     override fun containsKey(key: K): Boolean = get(key) != null
-}
-
-class BremenAvl<K : Comparable<K>, V>() : BremenAvlBase<K, V>() {
-    constructor(from: Collection<Pair<K, V>>) : this() {
-        from.forEach { (key, value) ->
-            put(key, value)
-        }
-    }
 }

@@ -1,5 +1,3 @@
-import buildutils.configureDetekt
-import buildutils.createDetektTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.research.code.submissions.clustering.buildutils.configureDiktat
 import org.jetbrains.research.code.submissions.clustering.buildutils.createDiktatTask
@@ -8,6 +6,7 @@ plugins {
     kotlin("jvm")
     application
     id("sample")
+    id("io.gitlab.arturbosch.detekt") version "1.21.0"
 }
 
 group = "bremen.kotlin"
@@ -56,8 +55,12 @@ tasks.register<FibonacciTask>("Fib_9") {
     n.set(9)
 }
 
-configureDiktat()
-configureDetekt()
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config = files("$projectDir/config/detekt.yml")
+    debug = true
+}
 
+configureDiktat()
 createDiktatTask()
-createDetektTask()

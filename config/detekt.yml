@@ -21,3 +21,4 @@ style:
 complexity:
   TooManyFunctions:
     thresholdInFiles: 15
+    thresholdInClasses: 14
