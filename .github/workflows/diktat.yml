@@ -1,4 +1,4 @@
-name: detekt
+name: diktat
 
 on: [ push, pull_request ]
 
@@ -21,7 +21,8 @@ jobs:
           arguments: diktatCheck
 
       - name: Archive diktat results
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: code-coverage-report
+          name: diktat-report
           path: build/reports/diktat.html
