@@ -2,7 +2,13 @@ package org.jub.kotlin.hometask3
 
 import java.util.*
 
-class BremenAvlList<K : Comparable<K>, V> : BremenAvlBase<K, V>(), AvlTreeList<K, V> {
+class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList<K, V> {
+    constructor(from: Collection<Pair<K, V>>) : this() {
+        from.forEach { (key, value) ->
+            put(key, value)
+        }
+    }
+
     override fun contains(element: V): Boolean = containsValue(element)
 
     override fun containsAll(elements: Collection<V>): Boolean = elements.all { contains(it) }
@@ -13,7 +19,7 @@ class BremenAvlList<K : Comparable<K>, V> : BremenAvlBase<K, V>(), AvlTreeList<K
         }
         var mutableIndex = index
         var curr = root
-        while(true) {
+        while (true) {
             val leftSize = curr?.left?.size ?: 0
             curr = when {
                 mutableIndex < leftSize -> curr?.left
@@ -33,6 +39,7 @@ class BremenAvlList<K : Comparable<K>, V> : BremenAvlBase<K, V>(), AvlTreeList<K
     override fun listIterator(index: Int): ListIterator<V> = object : ListIterator<V> {
         private val pathFromRoot: Stack<BremenAvlNode<K, V>> = Stack<BremenAvlNode<K, V>>()
         private var currIndex = 0
+
         init {
             root?.let { pathFromRoot.push(it) }
         }

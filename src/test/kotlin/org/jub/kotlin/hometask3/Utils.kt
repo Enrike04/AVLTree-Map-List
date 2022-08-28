@@ -7,4 +7,4 @@ internal const val testSetSize = 128
 
 internal fun getSetOfRandomValues(size: Int = testSetSize) = IntArray(size) { Random.nextInt() }.toSet()
 
-typealias AvlTreeMapImpl<K, V> = BremenAvl<K, V>
+typealias AvlTreeImpl<K, V> = BremenAvlList<K, V>

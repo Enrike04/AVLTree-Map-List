@@ -10,7 +10,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(testIterations)
     fun clear() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeMapImpl(values.zip(values.map { it.toString() }))
+        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.zip(values.map { it.toString() }))
         avl.clear()
         assertTrue(avl.isEmpty())
         assertTrue(avl.size == 0)
@@ -19,7 +19,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(testIterations)
     fun remove() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeMapImpl(values.zip(values.map { it.toString() }))
+        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.zip(values.map { it.toString() }))
         var expectedSize = values.size
         values.forEach {
             avl.remove(it)
@@ -32,7 +32,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(testIterations)
     fun put() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeMapImpl()
+        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl()
         assertTrue(avl.isEmpty())
         var expectedSize = 0
         values.forEach {

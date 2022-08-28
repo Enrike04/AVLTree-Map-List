@@ -13,34 +13,34 @@ class AvlTreeTest {
     @RepeatedTest(testIterations)
     fun maximumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.max(), avl.maximumKey(), "Wrong max key")
     }
 
     @RepeatedTest(testIterations)
     fun minimumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.min(), avl.minimumKey(), "Wrong min key")
     }
 
     @RepeatedTest(testIterations)
     fun maximumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.max().toDouble(), avl.maximumValue(), "Wrong max value")
     }
 
     @RepeatedTest(testIterations)
     fun minimumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.min().toDouble(), avl.minimumValue(), "Wrong min value")
     }
 
     @RepeatedTest(testIterations)
     fun minmaxThrows() {
-        val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl()
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl()
         assertThrows<Exception>("Empty tree should throw") {
             avl.minimumValue()
         }
@@ -61,7 +61,7 @@ class AvlTreeTest {
     fun getHeight() {
         for (size in 50..2050 step 100) {
             val values = getSetOfRandomValues(size)
-            val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+            val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
             assertTrue(avl.height > floor(log2(size)))
             assertTrue(avl.height < 1.44 * log2(size))
         }
