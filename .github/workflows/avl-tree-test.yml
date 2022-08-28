@@ -1,4 +1,4 @@
-name: Gradle Build
+name: Test Avl Tree
 
 on: [push, pull_request]
 
