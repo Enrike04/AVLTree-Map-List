@@ -1,7 +1,6 @@
 package org.jub.kotlin.hometask3
 
 import org.junit.jupiter.api.RepeatedTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -46,7 +45,7 @@ internal class AvlTreeListTest {
     }
 
     @Suppress("KotlinConstantConditions")
-    @Test
+    @RepeatedTest(testIterations)
     fun getThrows() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
@@ -68,7 +67,7 @@ internal class AvlTreeListTest {
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         val valuesIterator = values.listIterator()
         val avlIterator = avl.listIterator()
-        for (i in 1 until values.size) {
+        for (i in values.indices) {
             assertTrue(avlIterator.hasNext())
             assertEquals(valuesIterator.nextIndex(), avlIterator.nextIndex())
             assertEquals(valuesIterator.next().toDouble(), avlIterator.next())
@@ -91,12 +90,32 @@ internal class AvlTreeListTest {
 
     @RepeatedTest(testIterations)
     fun lastIndexOf() {
+        val valuesSet = getSetOfRandomValues()
+        val values = valuesSet.toList()
+        val entries = values.flatMap { value -> List(3) { index -> "$value #$index" to value } }.sortedBy { it.first }
+        val avl: AvlTreeList<String, Int> = AvlTreeImpl(entries.shuffled())
+        val encounteredCount = mutableMapOf<Int, Int>()
+        entries.forEachIndexed { index, (_, value) ->
+            when(val count = encounteredCount.getOrDefault(value, 0)) {
+                0, 1 -> {
+                    encounteredCount[value] = count + 1
+                    assertNotEquals(index, avl.lastIndexOf(value))
+                }
+                else -> { // 2
+                    assertEquals(index, avl.lastIndexOf(value))
+                }
+            }
+        }
 
+        getSetOfRandomValues().filter { it !in values }.forEach {
+            assertEquals(-1, avl.lastIndexOf(it))
+        }
     }
 
     @RepeatedTest(testIterations)
     fun indexOf() {
-        val values = getSetOfRandomValues().toList()
+        val valuesSet = getSetOfRandomValues()
+        val values = valuesSet.toList()
         val entries = values.flatMap { value -> List(3) { index -> "$value #$index" to value } }.sortedBy { it.first }
         val avl: AvlTreeList<String, Int> = AvlTreeImpl(entries)
         val encountered = mutableSetOf<Int>()
@@ -108,10 +127,9 @@ internal class AvlTreeListTest {
                 assertNotEquals(index, avl.indexOf(value))
             }
         }
-    }
 
-    @RepeatedTest(testIterations)
-    fun lastIndexVsIndex() {
-
+        getSetOfRandomValues().filter { it !in values }.forEach {
+            assertEquals(-1, avl.indexOf(it))
+        }
     }
 }

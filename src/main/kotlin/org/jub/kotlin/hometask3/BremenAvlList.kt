@@ -58,7 +58,7 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
 
         override fun hasNext(): Boolean {
             checkForComodification()
-            return isNotEmpty() && cursor != source.size - 1
+            return isNotEmpty() && cursor != source.size
         }
 
         override fun hasPrevious(): Boolean {
@@ -97,11 +97,24 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
     }
 
     override fun lastIndexOf(element: V): Int {
-        TODO("Not yet implemented")
+        var index = -1
+        val iterator = listIterator()
+        while (iterator.hasNext()) {
+            if (iterator.next() == element) {
+                index = iterator.previousIndex()
+            }
+        }
+        return index
     }
 
     override fun indexOf(element: V): Int {
-        TODO("Not yet implemented")
+        val iterator = listIterator()
+        while (iterator.hasNext()) {
+            if (iterator.next() == element) {
+                return iterator.previousIndex()
+            }
+        }
+        return -1
     }
 
     // modifications
