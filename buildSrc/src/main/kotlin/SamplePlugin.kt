@@ -26,7 +26,7 @@ abstract class SampleTask : DefaultTask() {
 class SamplePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.tasks.register("SamplePluginSampleTask", SampleTask::class.java) {
-            this.username.set("world!")
+            it.username.set("world!")
         }
     }
 }

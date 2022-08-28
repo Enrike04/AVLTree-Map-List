@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "1.7.10"
     `java-gradle-plugin`
-    `kotlin-dsl`
 }
 
 gradlePlugin {
@@ -20,5 +19,4 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-    implementation("org.cqfn.diktat:diktat-gradle-plugin:1.2.3")
 }

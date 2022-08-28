@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.research.code.submissions.clustering.buildutils.configureDiktat
-import org.jetbrains.research.code.submissions.clustering.buildutils.createDiktatTask
 
 plugins {
     kotlin("jvm")
     application
     id("sample")
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.2.3"
 }
 
 group = "bremen.kotlin"
@@ -77,5 +76,13 @@ tasks.register<io.gitlab.arturbosch.detekt.Detekt>("customDetekt") {
     exclude("build/")
 }
 
-configureDiktat()
-createDiktatTask()
+diktat {
+    reporter = "html"
+    output = "build/reports/diktat.html"
+
+    diktatConfigFile = file("$projectDir/config/diktat.yml")
+    inputs {
+        include("**/*.kts")
+        include("**/*.kt")
+    }
+}
