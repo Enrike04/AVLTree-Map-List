@@ -9,6 +9,8 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
         }
     }
 
+    fun isNotEmpty() = !isEmpty()
+
     override fun contains(element: V): Boolean = containsValue(element)
 
     override fun containsAll(elements: Collection<V>): Boolean = elements.all { contains(it) }
@@ -43,6 +45,12 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
         private val modCount = this@BremenAvlList.modCount
         private val source = this@BremenAvlList
 
+        init {
+            if (index >= source.size || index < 0) {
+                throw IndexOutOfBoundsException("Index: $index, Size: ${source.size}")
+            }
+        }
+
         private fun checkForComodification() {
             if (this.modCount != source.modCount)
                 throw ConcurrentModificationException("Iterator is invalid since the original list was modified")
@@ -50,31 +58,37 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
 
         override fun hasNext(): Boolean {
             checkForComodification()
-            return source.size > 0 && cursor != source.size - 1
+            return isNotEmpty() && cursor != source.size - 1
         }
 
         override fun hasPrevious(): Boolean {
-            return cursor > 0
+            checkForComodification()
+            return source.isNotEmpty() && cursor > 0
         }
 
         override fun next(): V {
+            checkForComodification()
             if (!hasNext())
-                throw ArrayIndexOutOfBoundsException("Cannot get index $cursor from the list")
+                throw IndexOutOfBoundsException("Index: $cursor, Size: ${source.size}")
             val value = source[cursor]
             cursor += 1
             return value
         }
 
         override fun nextIndex(): Int {
-            TODO("Not yet implemented")
+            return cursor
         }
 
         override fun previous(): V {
-            TODO("Not yet implemented")
+            checkForComodification()
+            if (!hasPrevious())
+                throw throw IndexOutOfBoundsException("Index: $cursor, Size: ${source.size}")
+            cursor -= 1
+            return source[cursor]
         }
 
         override fun previousIndex(): Int {
-            TODO("Not yet implemented")
+            return cursor - 1
         }
     }
 
@@ -93,7 +107,6 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
     // modifications
     internal var modCount = 0
 
-
     override fun clear() {
         modCount += 1
         super.clear()
@@ -104,15 +117,10 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
         return super.put(key, value)
     }
 
-    override fun putAll(from: Map<out K, V>) {
-        modCount += 1
-        super.putAll(from)
-    }
-
     override fun remove(key: K): V? {
         modCount += 1
         return super.remove(key)
     }
 
-    // Too lazy to do putIfAbsent and so on
+    // Too lazy to do putIfAbsent and so on, hope they use methods above
 }
