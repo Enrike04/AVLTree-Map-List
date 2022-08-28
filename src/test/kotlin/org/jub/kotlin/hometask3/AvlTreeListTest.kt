@@ -45,6 +45,7 @@ internal class AvlTreeListTest {
         }
     }
 
+    @Suppress("KotlinConstantConditions")
     @Test
     fun getThrows() {
         val values = getSetOfRandomValues()
@@ -63,11 +64,11 @@ internal class AvlTreeListTest {
 
     @RepeatedTest(testIterations)
     fun listIterator() {
-        val values = getSetOfRandomValues().toList()
+        val values = getSetOfRandomValues().toList().sorted()
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         val valuesIterator = values.listIterator()
         val avlIterator = avl.listIterator()
-        for (i in 1..values.size) {
+        for (i in 1 until values.size) {
             assertTrue(avlIterator.hasNext())
             assertEquals(valuesIterator.nextIndex(), avlIterator.nextIndex())
             assertEquals(valuesIterator.next().toDouble(), avlIterator.next())
