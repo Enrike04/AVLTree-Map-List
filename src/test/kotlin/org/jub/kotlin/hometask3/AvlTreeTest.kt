@@ -40,7 +40,7 @@ class AvlTreeTest {
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minmaxThrows() {
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl()
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(emptyList())
         assertThrows<Exception>("Empty tree should throw") {
             avl.minimumValue()
         }

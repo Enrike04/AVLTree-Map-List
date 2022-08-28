@@ -6,7 +6,6 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class MutableAvlTreeMapTest {
-
     @RepeatedTest(TEST_ITERATIONS)
     fun clear() {
         val values = getSetOfRandomValues()
@@ -32,7 +31,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun put() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl()
+        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
         assertTrue(avl.isEmpty())
         var expectedSize = 0
         values.forEach {

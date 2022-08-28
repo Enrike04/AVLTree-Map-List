@@ -33,16 +33,16 @@ application {
 
 abstract class FibonacciTask : DefaultTask() {
     @get:Input
-    abstract val n: Property<Int>
+    abstract val number: Property<Int>
 
     @TaskAction
     fun execute() {
-        if (n.get() < 0) {
+        if (number.get() < 0) {
             throw StopExecutionException("n must be non-negative")
         }
         var first = 0
         var second = 1
-        for (i in 1..n.get()) {
+        for (i in 1..number.get()) {
             second += first
             first = second - first
         }
@@ -51,7 +51,7 @@ abstract class FibonacciTask : DefaultTask() {
 }
 
 tasks.register<FibonacciTask>("Fib_9") {
-    n.set(9)
+    number.set(9)
 }
 
 detekt {

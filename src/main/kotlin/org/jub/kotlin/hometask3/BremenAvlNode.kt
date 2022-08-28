@@ -5,7 +5,7 @@ import java.util.*
 internal class BremenAvlNode<K : Comparable<K>, V>(
     override val key: K,
     override var value: V
-) : MutableMap.MutableEntry<K, V> {
+) : MuEntry<K, V> {
     // public
     var size: Int = 1
         private set

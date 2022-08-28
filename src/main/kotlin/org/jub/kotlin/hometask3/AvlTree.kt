@@ -1,6 +1,8 @@
 package org.jub.kotlin.hometask3
 
 interface AvlTree<K : Comparable<K>, V> {
+    /* abstract */ val height: Int
+
     /**
      * All maximum/minimum funs should throw some Exception if the tree is empty
      */
@@ -11,8 +13,6 @@ interface AvlTree<K : Comparable<K>, V> {
     fun maximumValue(): V
 
     fun minimumValue(): V
-
-    val height: Int
 }
 
 /**
@@ -21,7 +21,7 @@ interface AvlTree<K : Comparable<K>, V> {
  */
 interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 
-interface MutableAvlTreeMap<K : Comparable<K>, V> :  MutableMap<K, V>, AvlTreeMap<K, V>
+interface MutableAvlTreeMap<K : Comparable<K>, V> : MutableMap<K, V>, AvlTreeMap<K, V>
 
 /**
  * AbstractIterator might help you implement Iterator.

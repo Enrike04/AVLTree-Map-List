@@ -6,7 +6,7 @@ import kotlin.test.*
 internal class AvlTreeMapTest {
     @Test
     fun getSizeEmpty() {
-        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl()
+        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
         assertEquals(0, emptyAvl.size, "Default size should be 0")
     }
 
@@ -19,7 +19,7 @@ internal class AvlTreeMapTest {
 
     @Test
     fun isEmpty() {
-        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl()
+        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
         assertTrue(emptyAvl.isEmpty(), "Default tree should be empty")
     }
 

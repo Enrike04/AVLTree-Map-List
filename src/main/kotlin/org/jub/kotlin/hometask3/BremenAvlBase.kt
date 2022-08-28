@@ -1,9 +1,11 @@
 package org.jub.kotlin.hometask3
 
+internal typealias MuEntry<K, V> = MutableMap.MutableEntry<K, V>
+
 sealed class BremenAvlBase<K : Comparable<K>, V> : MutableAvlTreeMap<K, V> {
     override val height: Int
         get() = root?.height ?: 0
-    override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
+    override val entries: MutableSet<MuEntry<K, V>>
         get() = (root?.asSequence() ?: emptySequence()).toMutableSet()
     override val keys: MutableSet<K>
         get() = (root?.asSequence() ?: emptySequence()).map { it.key }.toMutableSet()

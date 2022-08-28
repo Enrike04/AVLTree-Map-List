@@ -2,8 +2,10 @@ package org.jub.kotlin.hometask3
 
 import kotlin.ConcurrentModificationException
 
-class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList<K, V> {
-    constructor(from: Collection<Pair<K, V>>) : this() {
+class BremenAvlList<K : Comparable<K>, V>(from: Collection<Pair<K, V>>) : BremenAvlBase<K, V>(), AvlTreeList<K, V> {
+    internal var modCount = 0
+
+    init {
         from.forEach { (key, value) ->
             put(key, value)
         }
@@ -75,9 +77,7 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
             return value
         }
 
-        override fun nextIndex(): Int {
-            return cursor
-        }
+        override fun nextIndex() = cursor
 
         override fun previous(): V {
             checkForComodification()
@@ -87,9 +87,7 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
             return source[cursor]
         }
 
-        override fun previousIndex(): Int {
-            return cursor - 1
-        }
+        override fun previousIndex() = cursor - 1
     }
 
     override fun subList(fromIndex: Int, toIndex: Int): List<V> {
@@ -118,8 +116,6 @@ class BremenAvlList<K : Comparable<K>, V>() : BremenAvlBase<K, V>(), AvlTreeList
     }
 
     // modifications
-    internal var modCount = 0
-
     override fun clear() {
         modCount += 1
         super.clear()
