@@ -1,4 +1,4 @@
-name: Test Avl Tree
+name: Test Mutable Avl Tree Map
 
 on: [push, pull_request]
 
@@ -18,4 +18,4 @@ jobs:
         uses: gradle/wrapper-validation-action@v1.0.4
       - uses: gradle/gradle-build-action@v2.1.5
         with:
-          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeTest
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.MutableAvlTreeMapTest
