@@ -11,6 +11,8 @@ interface AvlTree<K : Comparable<K>, V> {
     fun maximumValue(): V
 
     fun minimumValue(): V
+
+    val height: Int
 }
 
 /**

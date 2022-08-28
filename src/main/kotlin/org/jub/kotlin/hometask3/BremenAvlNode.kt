@@ -9,6 +9,8 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     // public
     var size: Int = 1
         private set
+    var height: Int = 1
+        private set
     var left: BremenAvlNode<K, V>? = null
         set(value) {
             require(value?.let { it.key < key } ?: true) { "${value?.key} must be < $key to be left child" }
@@ -126,7 +128,6 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     }
 
     // private
-    private var height: Int = 1
     private val balance: Int
         get() = (left?.height ?: 0) - (right?.height ?: 0)
 

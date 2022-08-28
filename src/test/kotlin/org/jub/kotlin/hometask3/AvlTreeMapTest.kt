@@ -2,6 +2,8 @@ package org.jub.kotlin.hometask3
 
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.assertThrows
+import kotlin.math.floor
+import kotlin.math.log
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -115,6 +117,18 @@ internal class AvlTreeMapTest {
         }
         assertThrows<Exception>("Empty tree should throw") {
             avl.maximumKey()
+        }
+    }
+
+    private fun log2(size: Int) = log(size.toDouble(), 2.0)
+
+    @Test
+    fun getHeight() {
+        for (size in 50..2050 step 100) {
+            val values = getSetOfRandomValues(size)
+            val avl: AvlTreeMap<Int, Double> = AvlTreeMapImpl(values.zip(values.map { it.toDouble() }))
+            assertTrue(avl.height > floor(log2(size)))
+            assertTrue(avl.height < 1.44 * log2(size))
         }
     }
 }
