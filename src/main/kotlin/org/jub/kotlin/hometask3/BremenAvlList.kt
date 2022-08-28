@@ -1,5 +1,7 @@
 package org.jub.kotlin.hometask3
 
+import java.util.*
+
 class BremenAvlList<K : Comparable<K>, V> : BremenAvlBase<K, V>(), AvlTreeList<K, V> {
     override fun contains(element: V): Boolean = containsValue(element)
 
@@ -24,16 +26,40 @@ class BremenAvlList<K : Comparable<K>, V> : BremenAvlBase<K, V>(), AvlTreeList<K
         }
     }
 
-    override fun iterator(): Iterator<V> {
-        TODO("Not yet implemented")
-    }
+    override fun iterator(): Iterator<V> = listIterator()
 
-    override fun listIterator(): ListIterator<V> {
-        TODO("Not yet implemented")
-    }
+    override fun listIterator(): ListIterator<V> = listIterator(0)
 
-    override fun listIterator(index: Int): ListIterator<V> {
-        TODO("Not yet implemented")
+    override fun listIterator(index: Int): ListIterator<V> = object : ListIterator<V> {
+        private val pathFromRoot: Stack<BremenAvlNode<K, V>> = Stack<BremenAvlNode<K, V>>()
+        private var currIndex = 0
+        init {
+            root?.let { pathFromRoot.push(it) }
+        }
+
+        override fun hasNext(): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun hasPrevious(): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun next(): V {
+            TODO("Not yet implemented")
+        }
+
+        override fun nextIndex(): Int {
+            TODO("Not yet implemented")
+        }
+
+        override fun previous(): V {
+            TODO("Not yet implemented")
+        }
+
+        override fun previousIndex(): Int {
+            TODO("Not yet implemented")
+        }
     }
 
     override fun subList(fromIndex: Int, toIndex: Int): List<V> {

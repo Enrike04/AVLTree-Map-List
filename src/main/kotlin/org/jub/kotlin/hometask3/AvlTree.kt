@@ -21,4 +21,8 @@ interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 
 interface MutableAvlTreeMap<K : Comparable<K>, V> :  MutableMap<K, V>, AvlTreeMap<K, V>
 
+/**
+ * AbstractIterator might help you implement Iterator.
+ * An easy way to implement would be to store index and call AvlTreeList.get(index), but we don't like easy ways.
+ */
 interface AvlTreeList<K : Comparable<K>, V> : List<V>, AvlTree<K, V>

@@ -94,7 +94,8 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
             candidate.value
         }
     }
-
+    
+    // Uses recursion :(
     fun containsValue(value: V): Boolean {
         if (this.value == value) {
             return true
