@@ -1,7 +1,11 @@
+import buildutils.configureDetekt
+import buildutils.createDetektTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.research.code.submissions.clustering.buildutils.configureDiktat
+import org.jetbrains.research.code.submissions.clustering.buildutils.createDiktatTask
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm")
     application
     id("sample")
 }
@@ -51,3 +55,9 @@ abstract class FibonacciTask : DefaultTask() {
 tasks.register<FibonacciTask>("Fib_9") {
     n.set(9)
 }
+
+configureDiktat()
+configureDetekt()
+
+createDiktatTask()
+createDetektTask()

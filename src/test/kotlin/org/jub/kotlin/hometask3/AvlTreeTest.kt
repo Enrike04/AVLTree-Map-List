@@ -10,35 +10,35 @@ import kotlin.test.assertTrue
 
 class AvlTreeTest {
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun maximumKey() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.max(), avl.maximumKey(), "Wrong max key")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun minimumKey() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.min(), avl.minimumKey(), "Wrong min key")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun maximumValue() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.max().toDouble(), avl.maximumValue(), "Wrong max value")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun minimumValue() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
         assertEquals(values.min().toDouble(), avl.minimumValue(), "Wrong min value")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun minmaxThrows() {
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl()
         assertThrows<Exception>("Empty tree should throw") {

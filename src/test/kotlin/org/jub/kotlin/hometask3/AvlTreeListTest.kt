@@ -9,7 +9,7 @@ import kotlin.test.assertTrue
 
 internal class AvlTreeListTest {
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun contains() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
@@ -22,7 +22,7 @@ internal class AvlTreeListTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun containsAll() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
@@ -34,7 +34,7 @@ internal class AvlTreeListTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun get() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
@@ -45,11 +45,11 @@ internal class AvlTreeListTest {
     }
 
     @Suppress("KotlinConstantConditions")
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun getThrows() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
-        for (i in 0..testSetSize) {
+        for (i in 0..TEST_SET_SIZE) {
             assertThrows<IndexOutOfBoundsException> {
                 avl[avl.size + i]
             }
@@ -61,7 +61,7 @@ internal class AvlTreeListTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun listIterator() {
         val values = getSetOfRandomValues().toList().sorted()
         val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
@@ -88,7 +88,7 @@ internal class AvlTreeListTest {
 //    fun subList() {
 //    }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun lastIndexOf() {
         val valuesSet = getSetOfRandomValues()
         val values = valuesSet.toList()
@@ -112,7 +112,7 @@ internal class AvlTreeListTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun indexOf() {
         val valuesSet = getSetOfRandomValues()
         val values = valuesSet.toList()

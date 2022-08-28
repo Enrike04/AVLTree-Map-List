@@ -19,15 +19,14 @@ abstract class SampleTask : DefaultTask() {
 
     @TaskAction
     fun greet() {
-        logger.lifecycle("Name is: ${username.orNull}")
-        println("Hello, ${username.orNull}!")
+        println("Hello, ${username.getOrElse("Unknown")}!")
     }
 }
 
 class SamplePlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.tasks.register("PluginTask", SampleTask::class.java) {task ->
-            task.username.set("world")
+        target.tasks.register("SamplePluginSampleTask", SampleTask::class.java) {
+            this.username.set("world!")
         }
     }
 }

@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 
 class MutableAvlTreeMapTest {
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun clear() {
         val values = getSetOfRandomValues()
         val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.zip(values.map { it.toString() }))
@@ -16,7 +16,7 @@ class MutableAvlTreeMapTest {
         assertTrue(avl.size == 0)
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun remove() {
         val values = getSetOfRandomValues()
         val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.zip(values.map { it.toString() }))
@@ -29,7 +29,7 @@ class MutableAvlTreeMapTest {
         assertTrue(avl.isEmpty())
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun put() {
         val values = getSetOfRandomValues()
         val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl()

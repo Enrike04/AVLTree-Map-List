@@ -10,7 +10,7 @@ internal class AvlTreeMapTest {
         assertEquals(0, emptyAvl.size, "Default size should be 0")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun getSize() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, String> = AvlTreeImpl(values.zip(values.map { it.toString() }))
@@ -23,7 +23,7 @@ internal class AvlTreeMapTest {
         assertTrue(emptyAvl.isEmpty(), "Default tree should be empty")
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun getEntries() {
         val values = getSetOfRandomValues()
         val doubleValues = values.map { it.toDouble() }.toSet()
@@ -34,7 +34,7 @@ internal class AvlTreeMapTest {
         assertTrue(doubleValues.all { doubleValue -> doubleValue in entries.map { it.value } })
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun containsKey() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
@@ -45,7 +45,7 @@ internal class AvlTreeMapTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun containsValue() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
@@ -56,7 +56,7 @@ internal class AvlTreeMapTest {
         }
     }
 
-    @RepeatedTest(testIterations)
+    @RepeatedTest(TEST_ITERATIONS)
     fun get() {
         val values = getSetOfRandomValues()
         val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
