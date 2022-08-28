@@ -56,10 +56,25 @@ tasks.register<FibonacciTask>("Fib_9") {
 }
 
 detekt {
+    ignoreFailures = true
+    buildUponDefaultConfig = false
+}
+
+tasks.register<io.gitlab.arturbosch.detekt.Detekt>("customDetekt") {
+    description = "Runs detekt"
+    setSource(files("src/main/kotlin", "src/test/kotlin"))
     buildUponDefaultConfig = true
     allRules = false
-    config = files("$projectDir/config/detekt.yml")
+    config.setFrom(files("$projectDir/config/detekt.yml"))
     debug = true
+    ignoreFailures = false
+    reports {
+        html.outputLocation.set(file("build/reports/detekt.html"))
+    }
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("resources/")
+    exclude("build/")
 }
 
 configureDiktat()
