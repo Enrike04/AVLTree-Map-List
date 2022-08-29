@@ -2,14 +2,13 @@ package org.jub.kotlin.hometask3
 
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.Test
 import kotlin.math.floor
 import kotlin.math.log
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AvlTreeTest {
-
     @RepeatedTest(TEST_ITERATIONS)
     fun maximumKey() {
         val values = getSetOfRandomValues()
@@ -63,7 +62,7 @@ class AvlTreeTest {
             val values = getSetOfRandomValues(size)
             val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
             assertTrue(avl.height > floor(log2(size)))
-            assertTrue(avl.height < 1.44 * log2(size))
+            assertTrue(avl.height < 2 * log2(size))
         }
     }
 }

@@ -7,15 +7,15 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
 
 abstract class SampleTask : DefaultTask() {
-    init {
-        description = "Just a sample template task"
-        group = "custom"
-    }
-
     @get:Input
     @get:Option(description = "Whom to greet?")
     abstract val username: Property<String>
     // property `name` is reserved ;^)
+
+    init {
+        description = "Just a sample template task"
+        group = "custom"
+    }
 
     @TaskAction
     fun greet() {

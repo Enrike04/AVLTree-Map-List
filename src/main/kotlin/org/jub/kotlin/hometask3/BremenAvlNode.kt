@@ -1,12 +1,11 @@
 package org.jub.kotlin.hometask3
 
-import java.util.*
+import java.util.Stack
 
 internal class BremenAvlNode<K : Comparable<K>, V>(
     override val key: K,
     override var value: V
 ) : MuEntry<K, V> {
-    // public
     var size: Int = 1
         private set
     var height: Int = 1
@@ -23,6 +22,8 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
             field = value
             update()
         }
+    private val balance: Int
+        get() = (left?.height ?: 0) - (right?.height ?: 0)
 
     override fun setValue(newValue: V): V {
         val old = value
@@ -30,31 +31,22 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         return old
     }
 
-    data class AvlReturn<K : Comparable<K>, V>(val value: V?, val newRoot: BremenAvlNode<K, V>?)
-
     private infix fun V?.with(node: BremenAvlNode<K, V>?) = AvlReturn(this, node)
 
     fun remove(key: K): AvlReturn<K, V> {
         val pathFromRoot = find(key)
-        val nodeToRemove = pathFromRoot.pop() // at least `this` will be in the stack
-        if (nodeToRemove.key != key) { // do nothing
+        val nodeToRemove = pathFromRoot.pop()  // at least `this` will be in the stack
+        if (nodeToRemove.key != key)
             return null with this
-        }
         val replacement: BremenAvlNode<K, V>?
         when {
-            nodeToRemove.left == null -> {
-                replacement = nodeToRemove.right
-                nodeToRemove.right = null
-            }
+            nodeToRemove.left == null -> replacement = nodeToRemove.right
 
-            nodeToRemove.right == null -> {
-                replacement = nodeToRemove.left
-                nodeToRemove.left = null
-            }
+            nodeToRemove.right == null -> replacement = nodeToRemove.left
 
-            else -> { // both children are present
+            else -> {
                 val candidate = nodeToRemove.right!!.leftmost()
-                val newRight = nodeToRemove.right!!.remove(candidate.key).newRoot // can shorten by 1
+                val newRight = nodeToRemove.right!!.remove(candidate.key).newRoot  // can shorten by 1
                 candidate.left = nodeToRemove.left
                 candidate.right = newRight
                 replacement = candidate.rotate()
@@ -62,9 +54,8 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         }
         nodeToRemove.right = null
         nodeToRemove.left = null
-        if (pathFromRoot.isEmpty()) {
+        if (pathFromRoot.isEmpty())
             return nodeToRemove.value with replacement
-        }
         val parentOfNodeToRemove = pathFromRoot.peek()
         when {
             parentOfNodeToRemove.key < key -> parentOfNodeToRemove.right = replacement
@@ -74,7 +65,7 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     }
 
     fun put(key: K, value: V): AvlReturn<K, V> {
-        val pathFromRoot = find(key) // at least `this` will be in the stack
+        val pathFromRoot = find(key)  // at least `this` will be in the stack
         val candidate = pathFromRoot.peek()
         when {
             candidate.key < key -> candidate.right = BremenAvlNode(key, value)
@@ -89,7 +80,7 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
     }
 
     fun get(key: K): V? {
-        val candidate = find(key).pop() // at least `this` will be in the stack
+        val candidate = find(key).pop()  // at least `this` will be in the stack
         return if (candidate.key != key) {
             null
         } else {
@@ -112,10 +103,6 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         }
         return curr
     }
-
-    // private
-    private val balance: Int
-        get() = (left?.height ?: 0) - (right?.height ?: 0)
 
     private fun update() {
         size = 1
@@ -161,14 +148,6 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         error("Cannot balance along empty path")
     }
 
-    private enum class AvlBalance(val factor: Int) {
-        BALANCED(0),
-        LEFT_ONE(1),
-        LEFT_TWO(2),
-        RIGHT_ONE(-1),
-        RIGHT_TWO(-2)
-    }
-
     private fun rotate() =
         when (balance) {
             AvlBalance.LEFT_TWO.factor -> {
@@ -204,6 +183,17 @@ internal class BremenAvlNode<K : Comparable<K>, V>(
         left = child.right
         child.right = this
         return child
+    }
+
+    data class AvlReturn<K : Comparable<K>, V>(val value: V?, val newRoot: BremenAvlNode<K, V>?)
+
+    private enum class AvlBalance(val factor: Int) {
+        BALANCED(0),
+        LEFT_ONE(1),
+        LEFT_TWO(2),
+        RIGHT_ONE(-1),
+        RIGHT_TWO(-2),
+        ;
     }
 }
 

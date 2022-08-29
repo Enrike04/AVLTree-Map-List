@@ -8,7 +8,6 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 internal class AvlTreeListTest {
-
     @RepeatedTest(TEST_ITERATIONS)
     fun contains() {
         val values = getSetOfRandomValues()
@@ -84,10 +83,6 @@ internal class AvlTreeListTest {
         }
     }
 
-//    @Test
-//    fun subList() {
-//    }
-
     @RepeatedTest(TEST_ITERATIONS)
     fun lastIndexOf() {
         val valuesSet = getSetOfRandomValues()
@@ -96,12 +91,13 @@ internal class AvlTreeListTest {
         val avl: AvlTreeList<String, Int> = AvlTreeImpl(entries.shuffled())
         val encounteredCount = mutableMapOf<Int, Int>()
         entries.forEachIndexed { index, (_, value) ->
-            when(val count = encounteredCount.getOrDefault(value, 0)) {
+            when (val count = encounteredCount.getOrDefault(value, 0)) {
                 0, 1 -> {
                     encounteredCount[value] = count + 1
                     assertNotEquals(index, avl.lastIndexOf(value))
                 }
-                else -> { // 2
+
+                else -> {
                     assertEquals(index, avl.lastIndexOf(value))
                 }
             }

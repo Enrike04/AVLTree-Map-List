@@ -170,3 +170,12 @@
 # NO
 - name: DEBUG_PRINT
   enabled: false
+# override fun listIterator(): ListIterator<V> = listIterator(0)
+- name: WRONG_OVERLOADING_FUNCTION_ARGUMENTS
+  enabled: false
+# containsValue
+- name: FUNCTION_BOOLEAN_PREFIX
+  enabled: false
+# NO
+- name: TYPE_ALIAS
+  enabled: false

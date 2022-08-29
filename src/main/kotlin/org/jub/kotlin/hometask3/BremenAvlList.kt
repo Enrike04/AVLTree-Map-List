@@ -58,15 +58,9 @@ class BremenAvlList<K : Comparable<K>, V>(from: Collection<Pair<K, V>>) : Bremen
                 throw ConcurrentModificationException("Iterator is invalid since the original list was modified")
         }
 
-        override fun hasNext(): Boolean {
-            checkForComodification()
-            return isNotEmpty() && cursor != source.size
-        }
+        override fun hasNext() = (isNotEmpty() && cursor != source.size).also { checkForComodification() }
 
-        override fun hasPrevious(): Boolean {
-            checkForComodification()
-            return source.isNotEmpty() && cursor > 0
-        }
+        override fun hasPrevious() = (source.isNotEmpty() && cursor > 0).also { checkForComodification() }
 
         override fun next(): V {
             checkForComodification()
