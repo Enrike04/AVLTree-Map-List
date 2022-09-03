@@ -14,3 +14,7 @@ Implement AVL Tree with comparable keys that holds values and (1 point each + 2 
 - List: subList() can be skipped or implemented via creating a separate tree (no tests)
 - Mutable Map 
 - Bonus: Mutable List (you should write tests yourself)
+
+Notice that `detekt` is failing due to "too many functions" in `AvlTreeImpl`. Please implement each interface separately 
+whenever possible, instead of creating an almighty Avl Tree. Detekt and diktat reports are being stored as Github 
+Actions' artifacts.
