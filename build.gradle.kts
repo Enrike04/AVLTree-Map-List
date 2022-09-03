@@ -1,14 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version "1.7.10"
     application
-    id("sample")
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "1.2.3"
 }
 
-group = "bremen.kotlin"
+group = "jub.kotlin"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -29,29 +28,6 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
-}
-
-abstract class FibonacciTask : DefaultTask() {
-    @get:Input
-    abstract val number: Property<Int>
-
-    @TaskAction
-    fun execute() {
-        if (number.get() < 0) {
-            throw StopExecutionException("n must be non-negative")
-        }
-        var first = 0
-        var second = 1
-        for (i in 1..number.get()) {
-            second += first
-            first = second - first
-        }
-        println("Result = $first")
-    }
-}
-
-tasks.register<FibonacciTask>("Fib_9") {
-    number.set(9)
 }
 
 detekt {

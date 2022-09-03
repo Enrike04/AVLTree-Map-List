@@ -1,3 +1,3 @@
 
-rootProject.name = "kotlin-bremen-course"
+rootProject.name = "jub-kotlin-avl"
 
