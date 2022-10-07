@@ -4,7 +4,7 @@ interface AvlTree<K : Comparable<K>, V> {
     /* abstract */ val height: Int
 
     /**
-     * All maximum/minimum funs should throw some Exception if the tree is empty
+     * All maximum/minimum functions should throw some Exception if the tree is empty
      */
     fun maximumKey(): K
 
@@ -21,7 +21,14 @@ interface AvlTree<K : Comparable<K>, V> {
  */
 interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 
-interface MutableAvlTreeMap<K : Comparable<K>, V> : MutableMap<K, V>, AvlTreeMap<K, V>
+interface MutableAvlTreeMap<K : Comparable<K>, V> : MutableMap<K, V>, AvlTreeMap<K, V> {
+    /**
+     * Type parameters of `other` here and in `mergeWith` below are wrong. Fix, please
+     */
+    fun merge(other: MutableAvlTreeMap<K, V>): MutableAvlTreeMap<K, V>
+}
+
+infix fun <K : Comparable<K>, V> MutableAvlTreeMap<K, V>.mergeWith(other: MutableAvlTreeMap<K, V>) = merge(other)
 
 /**
  * AbstractIterator might help you implement Iterator.

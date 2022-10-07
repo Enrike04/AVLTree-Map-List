@@ -12,28 +12,28 @@ class AvlTreeTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun maximumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
         assertEquals(values.max(), avl.maximumKey(), "Wrong max key")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minimumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
         assertEquals(values.min(), avl.minimumKey(), "Wrong min key")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun maximumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
         assertEquals(values.max().toDouble(), avl.maximumValue(), "Wrong max value")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minimumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
         assertEquals(values.min().toDouble(), avl.minimumValue(), "Wrong min value")
     }
 
@@ -60,7 +60,7 @@ class AvlTreeTest {
     fun getHeight() {
         for (size in 50..2050 step 100) {
             val values = getSetOfRandomValues(size)
-            val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+            val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
             assertTrue(avl.height > floor(log2(size)))
             assertTrue(avl.height < 2 * log2(size))
         }

@@ -93,4 +93,8 @@ class AvlTreeImpl<K : Comparable<K>, V>(from: Collection<Pair<K, V>> = emptyList
     override fun contains(element: V): Boolean {
         TODO("Not yet implemented")
     }
+
+    override fun merge(other: MutableAvlTreeMap<K, V>): MutableAvlTreeMap<K, V> {
+        TODO("Not yet implemented")
+    }
 }

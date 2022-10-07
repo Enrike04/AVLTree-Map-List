@@ -11,7 +11,7 @@ internal class AvlTreeListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun contains() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.withDoubles)
         values.forEach {
             assertTrue(avl.contains(it.toDouble()))
         }
@@ -47,7 +47,7 @@ internal class AvlTreeListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun getThrows() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.withDoubles)
         for (i in 0..TEST_SET_SIZE) {
             assertThrows<IndexOutOfBoundsException> {
                 avl[avl.size + i]
@@ -63,7 +63,7 @@ internal class AvlTreeListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun listIterator() {
         val values = getSetOfRandomValues().toList().sorted()
-        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.zip(values.map { it.toDouble() }))
+        val avl: AvlTreeList<Int, Double> = AvlTreeImpl(values.withDoubles)
         val valuesIterator = values.listIterator()
         val avlIterator = avl.listIterator()
         for (i in values.indices) {
