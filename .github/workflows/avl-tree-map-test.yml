@@ -1,4 +1,4 @@
-name: Test Avl Tree Map
+name: Map
 
 on:
   workflow_run:
