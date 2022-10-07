@@ -1,4 +1,4 @@
-name: Test Avl Tree
+name: Base Tree
 
 on:
   workflow_run:
