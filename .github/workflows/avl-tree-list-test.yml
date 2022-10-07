@@ -2,7 +2,7 @@ name: List
 
 on:
   workflow_run:
-    workflows: ["detekt"]
+    workflows: ["Base"]
     types:
       - completed
 
