@@ -1,6 +1,10 @@
 name: Test Mutable Avl Tree Map
 
-on: [push, pull_request]
+on:
+  workflow_run:
+    workflows: ["detekt"]
+    types:
+      - completed
 
 jobs:
   build:
