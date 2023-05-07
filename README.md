@@ -1,20 +1,16 @@
-![Gradle build](https://github.com/cscenter/kotlin-things/actions/workflows/gradle-build.yml/badge.svg)
-![Detekt](https://github.com/cscenter/kotlin-things/actions/workflows/detekt.yml/badge.svg)
-![Diktat](https://github.com/cscenter/kotlin-things/actions/workflows/diktat.yml/badge.svg)
-![Base](https://github.com/cscenter/kotlin-things/actions/workflows/avl-tree-test.yml/badge.svg)
-![Map](https://github.com/cscenter/kotlin-things/actions/workflows/avl-tree-map-test.yml/badge.svg)
-![List](https://github.com/cscenter/kotlin-things/actions/workflows/avl-tree-list-test.yml/badge.svg)
-![Mutable map](https://github.com/cscenter/kotlin-things/actions/workflows/avl-mutable-tree-map-test.yml/badge.svg)
+[![Build](https://github.com/cscenter/kotlin-avl/actions/workflows/HW3.yml/badge.svg)](https://github.com/cscenter/kotlin-avl/actions/workflows/HW3.yml)
 
-# Hometask 3: AVL Tree
+# Task 2. AVL tree
 
-Implement AVL Tree with comparable keys that holds values and (1 point each + 2 for general approach and code architecture):
+Implement an AVL tree with comparable keys that holds values and all of the following:
 - Base: min/max keys/values, height 
 - Map 
 - List: subList() can be skipped or implemented via creating a separate tree (no tests)
-- Mutable Map 
-- Bonus: Mutable List (you should write tests yourself)
+- Mutable map 
+- Bonus: Mutable list (you should write tests yourself)
 
-Notice that `detekt` is failing due to "too many functions" in `AvlTreeImpl`. Please implement each interface separately 
-whenever possible, instead of creating an almighty Avl Tree. Detekt and diktat reports are being stored as Github 
-Actions' artifacts.
+Notice that `detekt` is failing due to "too many functions" in `AvlTreeImpl`. Please implement each interface separately whenever possible, instead of creating an almighty AVL tree. Detekt and diktat reports are stored as Github Actions artifacts.
+
+**For the instructor, how to grade an assignment:**
+
+1 point for each item + 2 points for general approach and code architecture.
