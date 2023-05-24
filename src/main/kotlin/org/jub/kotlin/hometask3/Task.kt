@@ -25,10 +25,10 @@ interface MutableAvlTreeMap<K : Comparable<K>, V> : MutableMap<K, V>, AvlTreeMap
     /**
      * Type parameters of `other` here and in `mergeWith` below are wrong. Fix, please
      */
-    fun merge(other: MutableAvlTreeMap<K, V>): MutableAvlTreeMap<K, V>
+    fun merge(other: MutableAvlTreeMap<out K, out V>): MutableAvlTreeMap<K, V>
 }
 
-infix fun <K : Comparable<K>, V> MutableAvlTreeMap<K, V>.mergeWith(other: MutableAvlTreeMap<K, V>) = merge(other)
+infix fun <K : Comparable<K>, V> MutableAvlTreeMap<K, V>.mergeWith(other: MutableAvlTreeMap<out K, out V>) = merge(other)
 
 /**
  * AbstractIterator might help you implement Iterator.

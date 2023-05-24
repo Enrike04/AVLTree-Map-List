@@ -11,7 +11,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun clear() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.withStrings)
+        val avl: MutableAvlTreeMap<Int, String> = getMutableAvlTreeMap(values.withStrings)
         avl.clear()
         assertTrue(avl.isEmpty())
         assertTrue(avl.size == 0)
@@ -20,7 +20,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun remove() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(values.withStrings)
+        val avl: MutableAvlTreeMap<Int, String> = getMutableAvlTreeMap(values.withStrings)
         var expectedSize = values.size
         values.forEach {
             avl.remove(it)
@@ -33,7 +33,7 @@ class MutableAvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun put() {
         val values = getSetOfRandomValues()
-        val avl: MutableAvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
+        val avl: MutableAvlTreeMap<Int, String> = getMutableAvlTreeMap(emptyList())
         assertTrue(avl.isEmpty())
         var expectedSize = 0
         values.forEach {
@@ -53,8 +53,8 @@ class MutableAvlTreeMapTest {
     fun merge() {
         val values = getSetOfRandomValues(TEST_SET_SIZE).toList()
         val (less, more) = values.partition { it <= values.first() }
-        val avl1 = AvlTreeImpl(less.withDoubles)
-        val avl2 = AvlTreeImpl(more.withDoubles)
+        val avl1 = getMutableAvlTreeMap(less.withDoubles)
+        val avl2 = getMutableAvlTreeMap(more.withDoubles)
         val avl3 = avl1 mergeWith avl2
         assertEquals(values.size, avl3.size)
         values.forEach {
@@ -66,8 +66,8 @@ class MutableAvlTreeMapTest {
     fun mergeThrows() {
         val values = getSetOfRandomValues(TEST_SET_SIZE).toList()
         val (less, more) = values.partition { it <= values.first() }
-        val avl1 = AvlTreeImpl(less.withDoubles)
-        val avl2 = AvlTreeImpl(more.withDoubles)
+        val avl1 = getMutableAvlTreeMap(less.withDoubles)
+        val avl2 = getMutableAvlTreeMap(more.withDoubles)
         assertThrows<Exception>("Illegal merge should throw") {
             avl2 mergeWith avl1
         }
@@ -75,15 +75,15 @@ class MutableAvlTreeMapTest {
 
     @Test
     fun merge1() {
-        val avl1: MutableAvlTreeMap<Base, Int> = AvlTreeImpl(listOf(Child1(23) withValue 42))
-        val avl2 = AvlTreeImpl(listOf(Child2(23) withValue 42))
+        val avl1: MutableAvlTreeMap<Base, Int> = getMutableAvlTreeMap(listOf(Child1(23) withValue 42))
+        val avl2 = getMutableAvlTreeMap(listOf(Child2(23) withValue 42))
         avl1 mergeWith avl2
     }
 
     @Test
     fun merge2() {
-        val avl1: MutableAvlTreeMap<Int, Base> = AvlTreeImpl(listOf(42 to Child1(23)))
-        val avl2 = AvlTreeImpl(listOf(45 to Child2(23)))
+        val avl1: MutableAvlTreeMap<Int, Base> = getMutableAvlTreeMap(listOf(42 to Child1(23)))
+        val avl2 = getMutableAvlTreeMap(listOf(45 to Child2(23)))
         avl1 mergeWith avl2
     }
 }

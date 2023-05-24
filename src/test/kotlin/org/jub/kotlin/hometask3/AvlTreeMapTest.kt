@@ -6,20 +6,20 @@ import kotlin.test.*
 internal class AvlTreeMapTest {
     @Test
     fun getSizeEmpty() {
-        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
+        val emptyAvl: AvlTreeMap<Int, String> = getAvlTreeMap(emptyList())
         assertEquals(0, emptyAvl.size, "Default size should be 0")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun getSize() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, String> = AvlTreeImpl(values.withStrings)
+        val avl: AvlTreeMap<Int, String> = getAvlTreeMap(values.withStrings)
         assertEquals(values.size, avl.size, "Values and avl size should be equal")
     }
 
     @Test
     fun isEmpty() {
-        val emptyAvl: AvlTreeMap<Int, String> = AvlTreeImpl(emptyList())
+        val emptyAvl: AvlTreeMap<Int, String> = getAvlTreeMap(emptyList())
         assertTrue(emptyAvl.isEmpty(), "Default tree should be empty")
     }
 
@@ -27,7 +27,7 @@ internal class AvlTreeMapTest {
     fun getEntries() {
         val values = getSetOfRandomValues()
         val doubleValues = values.map { it.toDouble() }.toSet()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.zip(doubleValues))
+        val avl: AvlTreeMap<Int, Double> = getAvlTreeMap(values.zip(doubleValues))
         val entries = avl.entries
         assertTrue(entries.all { it.key in values && it.value in doubleValues })
         assertTrue(values.all { value -> value in entries.map { it.key } })
@@ -37,7 +37,7 @@ internal class AvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun containsKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
+        val avl: AvlTreeMap<Int, Double> = getAvlTreeMap(values.withDoubles)
         assertTrue(values.all { avl.containsKey(it) })
         val otherValues = getSetOfRandomValues()
         otherValues.filter { it !in values }.forEach {
@@ -48,7 +48,7 @@ internal class AvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun containsValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
+        val avl: AvlTreeMap<Int, Double> = getAvlTreeMap(values.withDoubles)
         assertTrue(values.all { avl.containsValue(it.toDouble()) })
         val otherValues = getSetOfRandomValues()
         otherValues.filter { it !in values }.forEach {
@@ -59,7 +59,7 @@ internal class AvlTreeMapTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun get() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeMap<Int, Double> = AvlTreeImpl(values.withDoubles)
+        val avl: AvlTreeMap<Int, Double> = getAvlTreeMap(values.withDoubles)
         values.forEach {
             assertEquals(it.toDouble(), avl[it])
         }
