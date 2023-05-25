@@ -12,22 +12,13 @@ sealed class MutableAvlTreeMapImpl<K : Comparable<K>, V> : BaseAvlTreeImpl<K, V>
     }
 
     override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
-        get() = TODO("Not yet implemented")
+        get() = AvlEntriesSet()
     override val keys: MutableSet<K>
         get() = TODO("Not yet implemented")
     override val values: MutableCollection<V>
         get() = TODO("Not yet implemented")
 
-    override fun clear() {
-        root = null
-        size = 0
-    }
-
     override fun isEmpty() = root == null
-
-    override fun remove(key: K): V? {
-        TODO("Not yet implemented")
-    }
 
     override fun putAll(from: Map<out K, V>) {
         from.forEach { (k, v) -> put(k, v) }
@@ -59,21 +50,18 @@ sealed class MutableAvlTreeMapImpl<K : Comparable<K>, V> : BaseAvlTreeImpl<K, V>
     }
 
     override fun containsKey(key: K): Boolean = getNode(key)?.let { it.key == key } ?: false
+
+    internal inner class AvlEntriesSet :
+        AbstractMutableSet<MutableMap.MutableEntry<K, V>>() {
+        override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
+            return insert(element.key, element.value) != null
+        }
+
+        override val size: Int
+            get() = this@MutableAvlTreeMapImpl.size
+
+        override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> = this@MutableAvlTreeMapImpl.MutableAvlIterator()
+    }
 }
 
 class AvlMutableMap<K : Comparable<K>, V> : MutableAvlTreeMapImpl<K, V>()
-
-internal class AvlEntriesSet<K : Comparable<K>, V>(private val src: MutableAvlTreeMapImpl<K, V>) :
-    AbstractMutableSet<MutableMap.MutableEntry<K, V>>() {
-    override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
-        return false
-    }
-
-    override val size: Int
-        get() = TODO("Not yet implemented")
-
-    override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> {
-        TODO("Not yet implemented")
-    }
-
-}

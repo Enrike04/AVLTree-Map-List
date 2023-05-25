@@ -1,5 +1,7 @@
 package org.jub.kotlin.hometask3.solution
 
+import kotlin.math.max
+
 fun <K : Comparable<K>, V> AvlNode<K, V>.minimumNode(): AvlNode<K, V> {
     var node = this
     while (true) {
@@ -55,6 +57,7 @@ fun <K : Comparable<K>, V> AvlNode<K, V>.balanced(): AvlNode<K, V> {
                 rightRotate()
             }
         }
+
         -2 -> {
             if (right?.balance == 1) {
                 rightLeftRotate()
@@ -62,6 +65,29 @@ fun <K : Comparable<K>, V> AvlNode<K, V>.balanced(): AvlNode<K, V> {
                 leftRotate()
             }
         }
+
         else -> this
     }
+}
+
+fun <K : Comparable<K>, V> AvlNode<K, V>.updateHeight() {
+    height = max(leftHeight, rightHeight) + 1
+}
+
+fun <K : Comparable<K>, V> AvlNode<K, V>.traverseInOrder(visit: AvlNode<K, V>.() -> Unit) {
+    left?.traverseInOrder(visit)
+    visit()
+    right?.traverseInOrder(visit)
+}
+
+fun <K : Comparable<K>, V> AvlNode<K, V>.traversePreOrder(visit: AvlNode<K, V>.() -> Unit) {
+    visit()
+    left?.traversePreOrder(visit)
+    right?.traversePreOrder(visit)
+}
+
+fun <K : Comparable<K>, V> AvlNode<K, V>.traversePostOrder(visit: AvlNode<K, V>.() -> Unit) {
+    left?.traversePostOrder(visit)
+    right?.traversePostOrder(visit)
+    visit()
 }

@@ -1,6 +1,7 @@
 package org.jub.kotlin.hometask3.solution
 
 import org.jub.kotlin.hometask3.AvlTree
+import java.util.ConcurrentModificationException
 
 sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
     protected inner class Result(val node: AvlNode<K, V>, val value: V?) {
@@ -12,8 +13,11 @@ sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
 
     protected var root: AvlNode<K, V>? = null
 
+    protected var modCount: Int = 0
+        private set
+
     var size: Int = 0
-        protected set
+        private set
 
     protected val rootOrException: AvlNode<K, V>
         get() = root ?: throw IllegalArgumentException("Empty tree")
@@ -32,7 +36,10 @@ sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
     fun insert(key: K, value: V): V? {
         val (n, v) = insert(root, AvlNode(key, value))
         root = n
-        v ?: run { size += 1 }
+        v ?: run {
+            size += 1
+            modCount += 1
+        }
         return v
     }
 
@@ -52,7 +59,13 @@ sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
         return path
     }
 
-    protected fun insert(treeNode: AvlNode<K, V>?, newNode: AvlNode<K, V>): Result {
+    fun clear() {
+        root = null
+        size = 0
+        modCount += 1
+    }
+
+    private fun insert(treeNode: AvlNode<K, V>?, newNode: AvlNode<K, V>): Result {
         var oldValue: V? = null
         treeNode ?: return newNode with oldValue
         if (newNode.key == treeNode.key) {
@@ -71,6 +84,38 @@ sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
         }
         treeNode.updateHeight()
         return treeNode.balanced() with oldValue
+    }
+
+    fun remove(key: K): V? {
+        val result = root?.remove(key)
+        result?.removedValue?.let {
+            root = result.newNode
+            modCount += 1
+            size -= 1
+            return it
+        }
+        return null
+    }
+
+    internal inner class MutableAvlIterator :
+        AbstractIterator<AvlNode<K, V>>(), MutableIterator<AvlNode<K, V>> {
+        private var modCount = this@BaseAvlTreeImpl.modCount
+
+        private fun checkConcurrentModification() {
+            if (this@BaseAvlTreeImpl.modCount != modCount) {
+                throw ConcurrentModificationException()
+            }
+        }
+        override fun computeNext() {
+            checkConcurrentModification()
+            TODO("Not yet implemented")
+        }
+
+        // TODO: throw IllegalStateException when computeNext() was not called yet
+        override fun remove() {
+            checkConcurrentModification()
+            TODO("Not yet implemented")
+        }
     }
 }
 
