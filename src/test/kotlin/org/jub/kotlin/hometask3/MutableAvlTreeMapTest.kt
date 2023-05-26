@@ -4,6 +4,7 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -85,5 +86,37 @@ class MutableAvlTreeMapTest {
         val avl1: MutableAvlTreeMap<Int, Base> = getMutableAvlTreeMap(listOf(42 to Child1(23)))
         val avl2 = getMutableAvlTreeMap(listOf(45 to Child2(23)))
         avl1 mergeWith avl2
+    }
+
+    @RepeatedTest(TEST_ITERATIONS)
+    fun mutableEntries() {
+        val values = getSetOfRandomValues().toList()
+        if (values.size < 2) return
+        val doubleValues = values.map { it.toDouble() }
+        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
+        val entries = avl.entries
+        val entrIterator = entries.iterator()
+        while (entrIterator.hasNext()) {
+            val entry = entrIterator.next()
+            assertTrue(avl.contains(entry.key))
+            entrIterator.remove()
+            assertFalse(avl.contains(entry.key))
+        }
+    }
+
+    @RepeatedTest(TEST_ITERATIONS)
+    fun mutableEntries2() {
+        val values = getSetOfRandomValues().toList()
+        if (values.size < 2) return
+        val doubleValues = values.map { it.toDouble() }
+        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
+        val entries = avl.entries
+        val entrIterator = entries.iterator()
+        while (entrIterator.hasNext()) {
+            val entry = entrIterator.next()
+            assertTrue(avl.contains(entry.key))
+            entrIterator.remove()
+            assertFalse(avl.contains(entry.key))
+        }
     }
 }

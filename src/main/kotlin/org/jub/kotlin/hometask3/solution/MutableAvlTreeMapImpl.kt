@@ -53,14 +53,14 @@ sealed class MutableAvlTreeMapImpl<K : Comparable<K>, V> : BaseAvlTreeImpl<K, V>
 
     internal inner class AvlEntriesSet :
         AbstractMutableSet<MutableMap.MutableEntry<K, V>>() {
-        override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
-            return insert(element.key, element.value) != null
-        }
+        override fun add(element: MutableMap.MutableEntry<K, V>) = insert(element.key, element.value) != null
+
 
         override val size: Int
             get() = this@MutableAvlTreeMapImpl.size
 
-        override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> = this@MutableAvlTreeMapImpl.MutableAvlIterator()
+        override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> =
+            this@MutableAvlTreeMapImpl.MutableAvlIterator()
     }
 }
 

@@ -1,7 +1,5 @@
 package org.jub.kotlin.hometask3.solution
 
-import kotlin.math.max
-
 data class AvlNode<K : Comparable<K>, V>(
     override val key: K,
     override var value: V,
@@ -48,7 +46,7 @@ data class AvlNode<K : Comparable<K>, V>(
 
     fun remove(keyToRemove: K): RemoveResult<K, V> {
         if (keyToRemove == key) {
-            val replacement = findReplacementChild() ?: return RemoveResult(value, null)
+            val replacement = findReplacementChild()
             return RemoveResult(value, replacement)
         }
 
@@ -63,11 +61,16 @@ data class AvlNode<K : Comparable<K>, V>(
                 v
             }
 
-        // nothing was removed => no need to balance
-        // if (removedValue == null) {
-        //    return RemoveResult(null, this)
-        // }
-
         return RemoveResult(removedValue, this.balanced())
+    }
+
+    fun next(providedKey: K): AvlNode<K, V>? {
+        if (providedKey >= key) {
+            return right?.next(providedKey)
+        }
+        if (providedKey < key) {
+            return left?.next(providedKey) ?: this
+        }
+        return null
     }
 }

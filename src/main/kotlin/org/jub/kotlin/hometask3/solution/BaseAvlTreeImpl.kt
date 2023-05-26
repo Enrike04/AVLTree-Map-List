@@ -101,20 +101,33 @@ sealed class BaseAvlTreeImpl<K : Comparable<K>, V> : AvlTree<K, V> {
         AbstractIterator<AvlNode<K, V>>(), MutableIterator<AvlNode<K, V>> {
         private var modCount = this@BaseAvlTreeImpl.modCount
 
+        private var lastElement: AvlNode<K, V>? = null
+
         private fun checkConcurrentModification() {
             if (this@BaseAvlTreeImpl.modCount != modCount) {
                 throw ConcurrentModificationException()
             }
         }
+
         override fun computeNext() {
             checkConcurrentModification()
-            TODO("Not yet implemented")
+            val curr = lastElement
+            lastElement = if (curr != null) {
+                root?.next(curr.key)
+            } else {
+                root?.minimumNode()
+            }
+
+            lastElement?.let { setNext(it) } ?: done()
         }
 
-        // TODO: throw IllegalStateException when computeNext() was not called yet
         override fun remove() {
             checkConcurrentModification()
-            TODO("Not yet implemented")
+            check(lastElement != null)
+            lastElement?.let {
+                check(this@BaseAvlTreeImpl.remove(it.key) != null)
+                modCount += 1
+            }
         }
     }
 }
