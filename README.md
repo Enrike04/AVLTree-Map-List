@@ -1,15 +1,22 @@
 [![Build](https://github.com/cscenter/kotlin-avl/actions/workflows/HW3.yml/badge.svg)](https://github.com/cscenter/kotlin-avl/actions/workflows/HW3.yml)
 
-# Task 2. AVL tree
+# Task 2. Balanced Search Tree
 
-Implement an AVL tree with comparable keys that holds values and all of the following:
-- Base: min/max keys/values, height 
+Implement a BST (i.e. AVL) with comparable keys. Using it, implement interfaces:
 - Map 
-- List: subList() can be skipped or implemented via creating a separate tree (no tests)
-- Mutable map 
+- Mutable map
+- List: `subList()` can be __skipped__ or implemented via creating a separate tree, there are no tests for it
 - Bonus: Mutable list (you should write tests yourself)
 
-Notice that `detekt` is failing due to "too many functions" in `AvlTreeImpl`. Please implement each interface separately whenever possible, instead of creating an almighty AVL tree. Detekt and diktat reports are stored as Github Actions artifacts.
+Tests use methods declared in `HelperFunctions.kt` to get instances of interfaces, you should replace TODOs with code that returns your implementations.
+
+Notice that `detekt` limits number of methods in a class. Please implement each interface separately whenever possible, instead of creating a single almighty class.
+
+# Detekt and Diktat
+To run detekt: `gradlew customDetekt`  
+To run diktat: `gradlew diktatCheck`  
+Or find corresponding Gradle tasks in IDEA's Gradle toolbar in 'Tasks > verification'.  
+Reports of both detekt and diktat can be found as HTML files in '$projectDir/build/reports'.
 
 **For the instructor, how to grade an assignment:**
 

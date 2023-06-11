@@ -24,6 +24,8 @@ interface AvlTreeMap<K : Comparable<K>, V> : Map<K, V>, AvlTree<K, V>
 interface MutableAvlTreeMap<K : Comparable<K>, V> : MutableMap<K, V>, AvlTreeMap<K, V> {
     /**
      * Type parameters of `other` here and in `mergeWith` below are wrong. Fix, please
+     * This method has a requirement that keys of `other` should be larger than keys of `this`, otherwise an Exception
+     * should be thrown.
      */
     fun merge(other: MutableAvlTreeMap<K, V>): MutableAvlTreeMap<K, V>
 }

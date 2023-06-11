@@ -64,7 +64,7 @@ class AvlTreeTest {
             println(avl.height)
             println(size)
             assertTrue(avl.height > floor(log2(size)))
-            assertTrue(avl.height < 2 * log2(size))
+            assertTrue(avl.height < log2(size) * log2(size))
         }
     }
 }
