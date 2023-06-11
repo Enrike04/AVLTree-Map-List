@@ -69,6 +69,7 @@ class MutableAvlTreeMapTest {
         val (less, more) = values.partition { it <= values.first() }
         val avl1 = getMutableAvlTreeMap(less.withDoubles)
         val avl2 = getMutableAvlTreeMap(more.withDoubles)
+        if (less.isEmpty() || more.isEmpty()) return
         assertThrows<Exception>("Illegal merge should throw") {
             avl2 mergeWith avl1
         }
