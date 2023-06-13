@@ -54,7 +54,7 @@ internal class AvlTreeListTest {
             }
         }
         for (i in -1 downTo -avl.size) {
-            assertThrows<IllegalArgumentException> {
+            assertThrows<IndexOutOfBoundsException> {
                 avl[i]
             }
         }
