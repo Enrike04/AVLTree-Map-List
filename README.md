@@ -84,6 +84,15 @@ fun trueIfAllNotNull(value1: Type?, value2: Type?, value3: Type?): Boolean {
 }
 ```
 
+## Partial Solutions
+
+You may have completed the `List` task, and have not implemented maps yet.
+Or you may have completed `Map`, but not `MutableMap`.
+In such cases you need to disable corresponding tests in order for the build to pass CI.
+To do that, go to `projectDir/.github/workflows/HW3.yml`. 
+There is a list of jobs: build, diktat and so on. 
+You can comment out/delete `map`, `mutable-map` or `list` (the whole block, not just the name) if you have not done that part yet.
+
 ## Detekt and Diktat
 To run detekt: `gradlew customDetekt`  
 To run diktat: `gradlew diktatCheck`  
