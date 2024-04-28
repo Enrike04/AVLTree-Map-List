@@ -18,7 +18,7 @@ fun <K : Comparable<K>, V> getMutableBstMap(collection: Iterable<Pair<K, V>>): M
     return avlTree
 }
 
-fun <K : Comparable<K>, V> getBstList(collection: Iterable<Pair<K, V>>): BalancedSearchTreeList<K, V> {
+fun <K : Comparable<K>, V> getBstList(collection: Iterable<Pair<K, V>>): BalancedSearchTreeList<K, V>{
     val avlTree = AvlTreeMutableMap<K, V>()
     collection.forEach { (key, value) -> avlTree[key] = value }
     return AvlTreeList(avlTree)

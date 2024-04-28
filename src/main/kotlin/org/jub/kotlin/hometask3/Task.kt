@@ -81,7 +81,6 @@ abstract class AvlTreeAbstract<K : Comparable<K>, V> : BalancedSearchTree<K, V> 
     private fun updateHeightNode(node: AvlNode<K, V>) {
         node.height = 1 + maxOf(getHeightNode(node.left), getHeightNode(node.right))
     }
-
     private fun balanceFactor(node: AvlNode<K, V>?): Int = getHeightNode(node?.left) - getHeightNode(node?.right)
 
     private fun rotateLeft(node: AvlNode<K, V>): AvlNode<K, V> {
