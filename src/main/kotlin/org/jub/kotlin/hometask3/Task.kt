@@ -91,7 +91,6 @@ abstract class AvlTreeAbstract<K : Comparable<K>, V> : BalancedSearchTree<K, V> 
         rightChild.left = node
         node.right = leftSubtreeOfRightChild
 
-        // Update parent references
         rightChild.parent = node.parent
         node.parent = rightChild
         leftSubtreeOfRightChild?.parent = node
